@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
-import Constants from 'expo-constants'; 
 import { StyleSheet, Text, View, TextInput, Button, ScrollView, SafeAreaView } from 'react-native';
-import {CheckBox} from "react-native-elements";
+import {CheckBox, Card} from "react-native-elements";
 import DatePicker from 'react-native-datepicker';
+import Constants from 'expo-constants';
+
 
 export default class TodoList extends Component{
   constructor(props) {
@@ -55,8 +56,10 @@ export default class TodoList extends Component{
           <TaskNameForm onAddTask = {this.handleAddTask}/>
         </View>
         <View>
-          <Text style = {{textAlign : 'center'}}>Lists </Text>
+          <Card>
+          <Text style = {{textAlign : 'center',width: 300,height:40, color:'darkblue'}}>LISTS </Text>
           <ScrollView>{this.Lists()}</ScrollView>
+          </Card>
         </View>
       </SafeAreaView>
     )
@@ -92,7 +95,8 @@ export class TaskNameForm extends Component {
   
     render() {
       return(
-        <View>
+        <View style = {styles.container}>
+          <Card title = "ToDoApp">
           <TextInput 
           style={{ height: 40, borderColor: 'black', borderWidth: 1 }} 
           placeholder={"Enter Task"} value = {this.state.TextInputValue} 
@@ -100,12 +104,10 @@ export class TaskNameForm extends Component {
           />
           <DatePicker 
             style={{width: 300}}
-            date={this.state.date} //initial date from state
-            mode="date" //The enum of date, datetime and time
+            date={this.state.date} 
+            mode="date"
             placeholder="select date"
             format="DD-MM-YYYY"
-            minDate="01-01-2020"
-            maxDate="01-01-2035"
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             customStyles={{
@@ -118,6 +120,9 @@ export class TaskNameForm extends Component {
           <Button 
           title = "Add" 
           onPress = {this.handleSubmit}/>
+          
+          </Card>
+    
         </View>
 
       )
@@ -126,79 +131,12 @@ export class TaskNameForm extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f23657',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 100,
-    marginHorizontal: 16,
-    
-
+    marginTop: Constants.statusBarHeight,
+    paddingTop:100,
+    marginHorizontal: 6,
 
   },
 });
-
-
-
-//   onSubmit = () => {
-//     if(this.state.title.length > 0) this.props.onAdd(this.state);
-//     return null;
-//   };
-//   setStateUtil = (property, value = undefined) => {
-//     this.setState({
-//       [property]: value,
-//     });
-//   };
-//   render() {
-//     const { title, completed } = this.state;
-//     const { onBlur } = this.props;
-//     return (
-//       <View
-//         style={{
-//           flex: 1,
-//           width: '100%',
-//           flexDirection: 'row',
-//           alignItems: 'center',
-//           paddingRight: 10,
-//           paddingBottom: 5,
-//           paddingTop: 5,
-//         }}
-//       >
-//         <CheckBox checked={completed} onPress={() => this.setStateUtil('completed', !completed)} />
-//         <Body
-//           style={{
-//             flex: 1,
-//             justifyContent: 'flex-start',
-//             alignItems: 'flex-start',
-//             paddingLeft: 25,
-//           }}
-//         >
-//           <TextInput
-//             style={{ width: '90%' }}
-//             placeholder="Add the items here.."
-//             autoFocus
-//             underLineColorAndroid="transparent"
-//             underlineColor="transparent"
-//             blurOnSubmit
-//             onSubmitEditing={this.onSubmit}
-//             onChangeText={changedTitle => this.setStateUtil('title', changedTitle)}
-//             value={title}
-//             autoCorrect={false}
-//             autoCapitalize="none"
-//             onBlur={onBlur}
-//           />
-//           </Body>
-//           <TouchableOpacity
-//           onPress={() => this.props.onCancelDelete}
-//           style={{ paddingLeft: 25, paddingRight: 15 }}
-//           >
-//           <Ionicons
-//             name="ios-trash-outline"
-//             color={`${title.length > 0 ? 'black' : 'grey'}`}
-//             size={23}
-//           />
-//           </TouchableOpacity>
-//       </View>
-//       );
-//     }
-
-// }
